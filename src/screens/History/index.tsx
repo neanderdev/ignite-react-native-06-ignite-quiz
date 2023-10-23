@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, ScrollView, Alert, Pressable } from 'react-native';
 import { HouseLine, Trash } from 'phosphor-react-native';
-import Animated, { Layout, SlideInRight, SlideOutRight } from 'react-native-reanimated';
+import { useEffect, useState } from 'react';
+import { Alert, Pressable, ScrollView, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
+import Animated, { Layout, SlideInRight, SlideOutRight } from 'react-native-reanimated';
 
 import { historyGetAll, historyRemove } from '../../storage/quizHistoryStorage';
 
@@ -79,15 +79,21 @@ export function History() {
                 overshootLeft={false}
                 containerStyle={styles.swipeableContainer}
                 renderLeftActions={() => (
-                  <Pressable style={styles.swipeableRemove}>
-                    <Trash size={32} color={THEME.COLORS.GREY_100} /> 
+                  <Pressable
+                    style={styles.swipeableRemove}
+                    onPress={() => handleRemove(item.id)}
+                  >
+                    <Trash
+                      size={32}
+                      color={THEME.COLORS.GREY_100}
+                    />
                   </Pressable>
                 )}
               >
                 <HistoryCard data={item} />
-                </Swipeable>
+              </Swipeable>
             </Animated.View>
-            
+
           ))
         }
       </ScrollView>
